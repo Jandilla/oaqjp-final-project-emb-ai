@@ -6,7 +6,7 @@
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask("Emotion Detector") 
+app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def emo_detector():
@@ -21,9 +21,10 @@ def emo_detector():
     response = emotion_detector(text_to_analyze)
     if response['dominant_emotion'] is None:
         return "Invalid input! Try again."
-    else:
-        # Extract and return the values from the response  
-        return " 'anger': {}, 'disgust': {}, 'fear': {}, 'joy': {} and 'sadness': {}. The dominant emotion is {}.".format(response['anger'],response['disgust'],response['fear'],response['joy'],response['sadness'],response['dominant_emotion'])
+    # Extract and return the values from the response
+    return f" 'anger': {response['anger']}, 'disgust': {response['disgust']},\
+     'fear': {response['fear']}, 'joy': {response['joy']} and 'sadness': \
+     {response['sadness']}. The dominant emotion is {response['dominant_emotion']}."
 
 @app.route("/")
 def render_index_page():
@@ -33,5 +34,4 @@ def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    ''' This functions executes the flask app and deploys it on localhost:5000'''
     app.run(host="0.0.0.0", port=5000)
