@@ -12,4 +12,7 @@ def emotion_detector(text_to_analyze):
     fear_score = formatted_response['emotionPredictions'][0]['emotion']['fear']
     joy_score = formatted_response['emotionPredictions'][0]['emotion']['joy']
     sadness_score = formatted_response['emotionPredictions'][0]['emotion']['sadness']
-    return {'anger': anger_score, 'disgust': disgust_score, 'fear': fear_score, 'joy': joy_score, 'sadness': sadness_score}
+    res_emo= {'anger': anger_score, 'disgust': disgust_score, 'fear': fear_score, 'joy': joy_score, 'sadness': sadness_score}
+    dominant =list(res_emo.keys())[list(res_emo.values()).index(max(list(res_emo.values())))]
+    res_emo['dominant_emotion']= dominant
+    return res_emo
