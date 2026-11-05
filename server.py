@@ -19,8 +19,11 @@ def emo_detector():
     text_to_analyze = request.args.get('textToAnalyze')
     # Pass the text to the emotion_detection function and store the response
     response = emotion_detector(text_to_analyze)
-    # Extract and return the values from the response  
-    return " 'anger': {}, 'disgust': {}, 'fear': {}, 'joy': {} and 'sadness': {}. The dominant emotion is {}.".format(response['anger'],response['disgust'],response['fear'],response['joy'],response['sadness'],response['dominant_emotion'])
+    if response['dominant_emotion'] is None:
+        return "Invalid input! Try again."
+    else:
+        # Extract and return the values from the response  
+        return " 'anger': {}, 'disgust': {}, 'fear': {}, 'joy': {} and 'sadness': {}. The dominant emotion is {}.".format(response['anger'],response['disgust'],response['fear'],response['joy'],response['sadness'],response['dominant_emotion'])
 
 @app.route("/")
 def render_index_page():
